@@ -1,17 +1,9 @@
-  <script>
-  // Compute base path from the current URL directory
-  (function() {
-    const path = window.location.pathname;
-    window.FellerBasePath = path.substring(0, path.lastIndexOf('/') + 1);
-  })();
-</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Feller - On-Rails Shooter</title>
-  <base id="game-base">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -44,6 +36,10 @@
     <p id="error-details"></p>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/phaser@3.85.0/dist/phaser.min.js"></script>
+  <script src="js/GameConfig.js"></script>
+  <script src="scenes/BootScene.js"></script>
+  <script src="scenes/GameScene.js"></script>
+  <script src="scenes/GameOverScene.js"></script>
   <script>
     // Show error if something breaks
     window.onerror = function(msg) {
@@ -52,45 +48,19 @@
       return false;
     };
 
-    // Dynamically load scripts with correct base path, then start the game
-    function loadScript(src) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = src;
-        s.onload = resolve;
-        s.onerror = reject;
-        document.head.appendChild(s);
-      });
-    }
-    loadScript(window.FellerBasePath + 'js/GameConfig.js')
-      .then(function() {
-        return loadScript(window.FellerBasePath + 'scenes/BootScene.js');
-      })
-      .then(function() {
-        return loadScript(window.FellerBasePath + 'scenes/GameScene.js');
-      })
-      .then(function() {
-        return loadScript(window.FellerBasePath + 'scenes/GameOverScene.js');
-      })
-      .then(function() {
-        var config = Object.assign({}, GameConfig, {
-          parent: 'game-container',
-          type: Phaser.AUTO,
-          width: 800,
-          height: 600,
-          backgroundColor: '#0a0a1a',
-          scale: {
-            mode: Phaser.Scale.FIT,
-            autoCenter: Phaser.Scale.CENTER_BOTH
-          },
-          scene: [BootScene, GameScene, GameOverScene]
-        });
-        new Phaser.Game(config);
-      })
-      .catch(function(err) {
-        document.getElementById('error-msg').style.display = 'block';
-        document.getElementById('error-details').textContent = 'Failed to load game scripts: ' + err.message;
-      });
+    var config = Object.assign({}, GameConfig, {
+      parent: 'game-container',
+      type: Phaser.AUTO,
+      width: 800,
+      height: 600,
+      backgroundColor: '#0a0a1a',
+      scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+      },
+      scene: [BootScene, GameScene, GameOverScene]
+    });
+    new Phaser.Game(config);
   </script>
 </body>
 </html>
