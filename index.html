@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Feller - On-Rails Shooter</title>
-  <base href="/">
+  <base id="dynamic-base">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -36,6 +36,13 @@
     <p style="font-size: 24px;">ERROR</p>
     <p id="error-details"></p>
   </div>
+  <script>
+    // Dynamically set base href for both GitHub Pages and webapp deployment
+    const host = window.location.host;
+    const isGitHubPages = host.includes('github.io');
+    const basePath = isGitHubPages ? '/' : '/feller/';
+    document.getElementById('dynamic-base').href = basePath;
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/phaser@3.85.0/dist/phaser.min.js"></script>
   <script src="js/GameConfig.js"></script>
   <script src="scenes/BootScene.js"></script>
