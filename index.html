@@ -1,9 +1,8 @@
-<script>
-  // Detect deployment location and set correct asset paths
+  <script>
+  // Compute base path from the current URL directory
   (function() {
     const path = window.location.pathname;
-    const isGitHubPages = path.startsWith('/fellergame/');
-    window.FellerBasePath = isGitHubPages ? '/fellergame/' : '/feller/';
+    window.FellerBasePath = path.substring(0, path.lastIndexOf('/') + 1);
   })();
 </script>
 <!DOCTYPE html>
