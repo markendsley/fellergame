@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Feller - On-Rails Shooter</title>
+  <!-- No base tag - use paths relative to repo root -->
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -35,22 +36,11 @@
     <p style="font-size: 24px;">ERROR</p>
     <p id="error-details"></p>
   </div>
-  <script>
-    // Dynamically set base href for both GitHub Pages and webapp deployment
-    (function() {
-      const host = window.location.host;
-      const isGitHubPages = host.includes('github.io');
-      const basePath = isGitHubPages ? '/' : '/feller/';
-      var base = document.createElement('base');
-      base.href = basePath;
-      document.head.appendChild(base);
-    })();
-  </script>
   <script src="https://cdn.jsdelivr.net/npm/phaser@3.85.0/dist/phaser.min.js"></script>
-  <script src="js/GameConfig.js"></script>
-  <script src="scenes/BootScene.js"></script>
-  <script src="scenes/GameScene.js"></script>
-  <script src="scenes/GameOverScene.js"></script>
+  <script src="./js/GameConfig.js"></script>
+  <script src="./scenes/BootScene.js"></script>
+  <script src="./scenes/GameScene.js"></script>
+  <script src="./scenes/GameOverScene.js"></script>
   <script>
     // Show error if something breaks
     window.onerror = function(msg) {
