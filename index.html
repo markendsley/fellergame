@@ -1,10 +1,18 @@
+<script>
+  // Detect deployment location and set correct asset paths
+  (function() {
+    const path = window.location.pathname;
+    const isGitHubPages = path.startsWith('/fellergame/');
+    window.FellerBasePath = isGitHubPages ? '/fellergame/' : '/feller/';
+  })();
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Feller - On-Rails Shooter</title>
-  <!-- No base tag - use paths relative to repo root -->
+  <base id="game-base">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -37,10 +45,18 @@
     <p id="error-details"></p>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/phaser@3.85.0/dist/phaser.min.js"></script>
-  <script src="./js/GameConfig.js"></script>
-  <script src="./scenes/BootScene.js"></script>
-  <script src="./scenes/GameScene.js"></script>
-  <script src="./scenes/GameOverScene.js"></script>
+  <script>
+    // Dynamically load scripts with correct base path
+    function loadScript(src) {
+      var s = document.createElement('script');
+      s.src = src;
+      document.head.appendChild(s);
+    }
+    loadScript(window.FellerBasePath + 'js/GameConfig.js');
+    loadScript(window.FellerBasePath + 'scenes/BootScene.js');
+    loadScript(window.FellerBasePath + 'scenes/GameScene.js');
+    loadScript(window.FellerBasePath + 'scenes/GameOverScene.js');
+  </script>
   <script>
     // Show error if something breaks
     window.onerror = function(msg) {
