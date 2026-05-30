@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feller - On-Rails Shooter</title>
+  <base href="/">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a1a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      color: #ff3333;
+      font-family: monospace;
+    }
+    #game-container {
+      border: 2px solid #333;
+    }
+    #error-msg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container"></div>
+  <div id="error-msg">
+    <p style="font-size: 24px;">ERROR</p>
+    <p id="error-details"></p>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.85.0/dist/phaser.min.js"></script>
+  <script src="js/GameConfig.js"></script>
+  <script src="scenes/BootScene.js"></script>
+  <script src="scenes/GameScene.js"></script>
+  <script src="scenes/GameOverScene.js"></script>
+  <script>
+    // Show error if something breaks
+    window.onerror = function(msg) {
+      document.getElementById('error-msg').style.display = 'block';
+      document.getElementById('error-details').textContent = msg;
+      return false;
+    };
+
+    const config = Object.assign({}, GameConfig, {
+      parent: 'game-container',
+      type: Phaser.AUTO,
+      width: 800,
+      height: 600,
+      backgroundColor: '#0a0a1a',
+      scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+      },
+      scene: [BootScene, GameScene, GameOverScene]
+    });
+    const game = new Phaser.Game(config);
+  </script>
+</body>
+</html>
